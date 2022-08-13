@@ -42,13 +42,13 @@ app.post("/login", async (req, res) => {
                                         const token = await user.generateAuthToken();
                                         res.cookie("loginvalidtoken", token)
 
-                                        res.send({ message: "Login Successfull", user: token })
+                                        res.status(200).send({ message: "Login Successfull", user: token })
                                 }
                                 else {
-                                        res.send({ message: "Password didnt match" })
+                                        res.status(401).send({ message: "Password didnt match" })
                                 }
                         } else {
-                                res.send("user not registered")
+                                res.status(400).send("user not registered")
                         }
                 })
         } catch (err) {
@@ -106,7 +106,7 @@ userSchema.methods.generateAuthToken = async function () {
 
 
 const User = new mongoose.model("User", userSchema)
-app.listen(3002, () => {
+app.listen(3008, () => {
         console.log("server started on 3002")
 })
 
